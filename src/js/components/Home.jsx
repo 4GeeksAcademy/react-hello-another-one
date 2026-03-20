@@ -1,28 +1,43 @@
-import React from "react";
-
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+import React, { useState } from "react";
 
 //create your first component
 const Home = () => {
-	return (
-		<div className="text-center">
-            
 
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
-	);
+    const [tarea, setTarea] = useState("");
+    const [ul, setUl] = useState([]);
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter" && tarea.trim() !== "") {
+            setUl([...ul, tarea]);   // add new task
+            setTarea("");            // clear input
+        }
+    };
+
+    return (
+        <div className="text-center">
+            <div className="col-8 form-floating mb-3">
+
+                <input
+                    type="text"
+                    className="form-control"
+                    id="floatingInput"
+                    placeholder="METETUTAREA"
+                    value={tarea}
+                    onChange={(e) => setTarea(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                />
+
+                <label htmlFor="floatingInput">METETUTAREA</label>
+
+                <ul>
+                    {ul.map((tareas, index) => (
+                        <li key={index}>{tareas}</li>
+                    ))}
+                </ul>
+
+            </div>
+        </div>
+    );
 };
 
 export default Home;
